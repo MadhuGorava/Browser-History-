@@ -77,6 +77,22 @@ const initialHistoryList = [
 ]
 
 // Replace your code here
+state = {searchInput: '', userDetailsList: initialUserDetailsList}
+
+onChangeSearchInput = event => {
+  this.setState({searchInput: event.target.value})
+}
+
+deleteUSer = uniqueNo => {
+  const {userDetailsList} = this.state
+  const filteredUserList = userDetailsList.filter(
+    eachUser => eachUser.uniqueNo !== uniqueNo,
+  )
+  this.setState({userDetailsList: filteredUserList})
+}
+const onDelete = () => {
+  deleteUSer(id)
+}
 const App = () => (
   <div>
     <div className="search-container">
@@ -95,6 +111,7 @@ const App = () => (
           type="search"
           placeholder="Search History"
           className="search-icon"
+          onChange={onChangeSearchInput}
         />
       </div>
     </div>
@@ -116,11 +133,17 @@ const App = () => (
                 <p>{eachItem.domainUrl}</p>
               </div>
               <div>
-                <img
-                  src="https://assets.ccbp.in/frontend/react-js/delete-img.png"
-                  alt="delete"
-                  className="delete-icon"
-                />
+                <button
+                  type="button"
+                  className="delete-button"
+                  onClick={onDelete}
+                >
+                  <img
+                    src="https://assets.ccbp.in/frontend/react-js/delete-img.png"
+                    alt="cross"
+                    className="delete-img"
+                  />
+                </button>
               </div>
             </div>
             key = {eachItem.id}
